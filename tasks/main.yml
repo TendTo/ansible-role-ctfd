@@ -1,2 +1,117 @@
 ---
 # tasks file for ctfd
+- name: "Install requirements"
+  ansible.builtin.apt:
+    package:
+      - python3
+      - python3-pip
+      - python-is-python3
+    state: present
+  tags: ['install']
+
+- name: "Create CTFd user"
+  ansible.builtin.user:
+    name: "ctfd"
+    shell: "/bin/bash"
+    home: "/opt/ctfd"
+    system: true
+    createhome: false
+  tags: ['install']
+
+- name: "Check if CTFd is already installed"
+  ansible.builtin.stat:
+    path: "/opt/CFTd-{{ ctfd_version }}"
+  register: ctfd_installed
+  tags: ['install']
+
+- name: "Download CTFd"
+  ansible.builtin.get_url:
+    url: "{{ ctfd_download_url }}"
+    dest: "/tmp/ctfd.zip"
+    mode: "0644"
+    owner: "ctfd"
+    group: "ctfd"
+  tags: ['install']
+  when: ctfd_installed.stat.exists == false
+
+- name: "Unzip CTFd on to /opt"
+  ansible.builtin.unarchive:
+    src: "/tmp/ctfd.zip"
+    dest: "/opt"
+    remote_src: true
+  tags: ['install']
+  when: ctfd_installed.stat.exists == false
+
+- name: "Change owner of CTFd"
+  ansible.builtin.file:
+    path: "/opt/CTFd-{{ ctfd_version }}"
+    owner: "ctfd"
+    group: "ctfd"
+    recurse: true
+  tags: ['install']
+  when: ctfd_installed.stat.exists == false
+
+- name: "Create symlink to CTFd"
+  ansible.builtin.file:
+    src: "/opt/CTFd-{{ ctfd_version }}"
+    dest: "/opt/ctfd"
+    state: link
+    owner: "ctfd"
+    group: "ctfd"
+  tags: ['install']
+  when: ctfd_installed.stat.exists == false
+
+- name: "Create uploads folder"
+  ansible.builtin.file:
+    path: "{{ ctfd_uploads_folder }}"
+    owner: "ctfd"
+    group: "ctfd"
+    mode: "0755"
+    state: directory
+  tags: ['install']
+
+- name: "Create logs folder"
+  ansible.builtin.file:
+    path: "{{ ctfd_logs_folder }}"
+    owner: "ctfd"
+    group: "ctfd"
+    mode: "0755"
+    state: directory
+  tags: ['install']
+
+- name: "Install CTFd requirements"
+  ansible.builtin.pip:
+    requirements: "/opt/ctfd/requirements.txt"
+    umask: "0022"
+  tags: ['install']
+
+- name: "Push config.ini"
+  ansible.builtin.template:
+    src: "config.ini.j2"
+    dest: "/opt/ctfd/CTFd/config.ini"
+    owner: "ctfd"
+    group: "ctfd"
+    mode: "0644"
+  tags: ['config']
+
+- name: "Migrate DB"
+  ansible.builtin.command: "python3 manage.py db upgrade"
+  args:
+    chdir: "/opt/ctfd/"
+  tags: ['config']
+
+- name: "Create service"
+  template:
+    src: "ctfd.service.j2"
+    dest: "/etc/systemd/system/ctfd.service"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  tags: ["install"]
+
+- name: "Start service"
+  ansible.builtin.service:
+    name: "ctfd"
+    state: restarted
+    enabled: true
+  tags: ["install"]

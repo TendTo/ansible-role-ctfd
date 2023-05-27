@@ -1,2 +1,17 @@
 ---
 # defaults file for ctfd
+ctfd_version: "3.5.2"
+ctfd_download_url: "https://github.com/CTFd/CTFd/archive/refs/tags/{{ ctfd_version }}.zip"
+
+ctfd_secret_key: "ThisIsASecretKeyAndYouNeedToChangeIt"
+
+ctfd_db_url: "mysql+pymysql://ctfd:ctfd@localhost/ctfd"
+ctfd_redis_url: "redis://localhost:6379"
+
+# no / at the end for folders
+ctfd_logs_folder: "/var/log/ctfd"
+ctfd_uploads_folder: "/opt/ctfd_uploads"
+
+ctfd_gunicorn_workers: 3
+ctfd_bind_address: "127.0.0.1:4000"
+ctfd_reverse_proxy: false
