@@ -6,6 +6,7 @@
       - python3
       - python3-pip
       - python-is-python3
+      - unzip
     state: present
   tags: ['install']
 
@@ -42,7 +43,7 @@
   tags: ['install']
   when: ctfd_installed.stat.exists == false
 
-- name: "Change owner of CTFd"
+- name: "Change owner of file to CTFd"
   ansible.builtin.file:
     path: "/opt/CTFd-{{ ctfd_version }}"
     owner: "ctfd"
@@ -98,6 +99,7 @@
   ansible.builtin.command: "python3 manage.py db upgrade"
   args:
     chdir: "/opt/ctfd/"
+  become_user: "ctfd"
   tags: ['config']
 
 - name: "Create service"

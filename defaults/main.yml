@@ -1,6 +1,6 @@
 ---
 # defaults file for ctfd
-ctfd_version: "3.5.2"
+ctfd_version: "3.7.1"
 ctfd_download_url: "https://github.com/CTFd/CTFd/archive/refs/tags/{{ ctfd_version }}.zip"
 
 ctfd_secret_key: "ThisIsASecretKeyAndYouNeedToChangeIt"
