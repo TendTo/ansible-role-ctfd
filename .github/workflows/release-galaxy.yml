@@ -1,12 +1,10 @@
 ---
-name: Publish on Ansible Galaxy
+name: Publish role on Ansible Galaxy
 
 on:
   push:
     tags:
       - "v*"
-    branches:
-      - master
 
 jobs:
   publish:
@@ -15,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Release Ansible Role to Galaxy
         uses: hspaans/ansible-galaxy-action@v1
