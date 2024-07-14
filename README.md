@@ -1,18 +1,18 @@
-Role Name
+CTFD
 =========
 
-Install and configure CTFd service.
+Install and configure CTFd app
 
 Requirements
 ------------
 
 You need to configure a database and a redis server.
-You also need to configure a web server to serve the CTFd application after installation.
+You also need to configure a web server to serve the CTFd application after installation with nginx proxy.
 
 Role Variables
 --------------
 
-see defaults/[main.yml](defaults/main.yml)
+Variable can be found in `defaults/main.yml` and are as follows: [Click here](defaults/main.yml)
 
 Dependencies
 ------------
@@ -30,9 +30,9 @@ Example Playbook
 License
 -------
 
-MIT
+GNU GPLv3
 
 Author Information
 ------------------
 
-Created by msterhuj
+msterhuj <gabin.lanore@gmail.com>

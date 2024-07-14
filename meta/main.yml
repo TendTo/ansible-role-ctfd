@@ -1,17 +1,23 @@
 galaxy_info:
-  author: MsterHuj
-  description: Install CTFd service
+  author: msterhuj
+  namespace: msterhuj
+  description: Install CTFd app
   role_name: ctfd
   issue_tracker_url: https://github.com/msterhuj/ansible-role-ctfd/issues
-  license: MIT
+  license: GPL-3.0-only
   min_ansible_version: "2.1"
+
   platforms:
-  - name: Ubuntu
-    versions:
-    - jammy
+    - name: Ubuntu
+      versions:
+        - noble # 24.04
+        - jammy # 22.10
+        - focal # 20.04
+
   galaxy_tags:
     - "ctfd"
     - "challenge"
     - "ctf"
     - "security"
+
 dependencies: []
