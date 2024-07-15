@@ -2,4 +2,4 @@
   hosts: all
   become: true
   roles:
-    - role: msterhuj.victoriametrics_single
+    - role: msterhuj.ctfd
