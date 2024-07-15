@@ -65,7 +65,7 @@ DATABASE_NAME =
 #
 # e.g. redis://user:password@localhost:6379
 # http://pythonhosted.org/Flask-Caching/#configuring-flask-caching
-REDIS_URL =
+REDIS_URL = {{ ctfd_redis_url | default('') }}
 
 # REDIS_HOST
 # The hostname of the Redis server to connect to.
@@ -230,11 +230,11 @@ SQLALCHEMY_TRACK_MODIFICATIONS =
 
 # SWAGGER_UI
 # Enable the Swagger UI endpoint at /api/v1/
-SWAGGER_UI =
+SWAGGER_UI = {{ ctfd_swagger_ui }}
 
 # UPDATE_CHECK
 # Specifies whether or not CTFd will check whether or not there is a new version of CTFd. Defaults True.
-UPDATE_CHECK =
+UPDATE_CHECK = {{ ctfd_update_check }}
 
 # APPLICATION_ROOT
 # Specifies what path CTFd is mounted under. It can be used to run CTFd in a subdirectory.
