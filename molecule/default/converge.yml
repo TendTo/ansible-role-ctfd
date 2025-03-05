@@ -1,5 +1,7 @@
 - name: Converge
   hosts: all
   become: true
+  vars:
+    ctfd_secret_key: "secret_key_molecule"
   roles:
     - role: msterhuj.ctfd

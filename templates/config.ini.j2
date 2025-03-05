@@ -10,7 +10,6 @@
 #   2. Use a default value specified in it's own internal configuration
 #   3. Use a null value (i.e. None) or empty string for the configuration value
 
-
 [server]
 # SECRET_KEY:
 # The secret value used to creation sessions and sign strings. This should be set to a random string. In the
@@ -29,7 +28,7 @@ SECRET_KEY = {{ ctfd_secret_key }}
 #
 # If neither this setting nor `DATABASE_HOST` is specified, CTFd will automatically create a SQLite database for you to use
 # e.g. mysql+pymysql://root:<YOUR_PASSWORD_HERE>@localhost/ctfd
-DATABASE_URL = {{ ctfd_db_url }}
+DATABASE_URL = {{ ctfd_db_url | default('') }}
 
 # DATABASE_HOST
 # The hostname of the database server used to hold the CTFd database.

@@ -1,6 +1,6 @@
 ---
 # defaults file for ctfd
-ctfd_version: "3.7.1"
+ctfd_version: "3.7.6"
 ctfd_download_url: "https://github.com/CTFd/CTFd/archive/refs/tags/{{ ctfd_version }}.zip"
 
 # SECRET_KEY:
@@ -12,7 +12,7 @@ ctfd_download_url: "https://github.com/CTFd/CTFd/archive/refs/tags/{{ ctfd_versi
 # you are using.
 #
 # http://flask.pocoo.org/docs/latest/quickstart/#sessions
-ctfd_secret_key: "ThisIsASecretKeyAndYouNeedToChangeIt"
+ctfd_secret_key: "{{ undef('please set ctfd_secret_key') }}"
 
 # DATABASE_URL
 # The URI that specifies the username, password, hostname, port, and database of the server
@@ -20,7 +20,7 @@ ctfd_secret_key: "ThisIsASecretKeyAndYouNeedToChangeIt"
 #
 # If neither this setting nor `DATABASE_HOST` is specified, CTFd will automatically create a SQLite database for you to use
 # e.g. mysql+pymysql://root:<YOUR_PASSWORD_HERE>@localhost/ctfd
-ctfd_db_url: "mysql+pymysql://ctfd:ctfd@localhost/ctfd"
+ctfd_db_url: null
 
 # REDIS_URL
 # The URL to connect to a Redis server. If neither this setting nor `REDIS_HOST` is specified,
@@ -28,11 +28,12 @@ ctfd_db_url: "mysql+pymysql://ctfd:ctfd@localhost/ctfd"
 #
 # e.g. redis://user:password@localhost:6379
 # http://pythonhosted.org/Flask-Caching/#configuring-flask-caching
-ctfd_redis_url: "redis://localhost:6379"
+ctfd_redis_url: null
 
 # no / at the end for folders
 ctfd_logs_folder: "/var/log/ctfd"
 ctfd_uploads_folder: "/opt/ctfd_uploads"
+ctfd_venv_path: "/opt/ctfd/venv"
 
 ctfd_gunicorn_workers: 3
 ctfd_bind_address: "127.0.0.1:4000"
