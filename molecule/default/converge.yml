@@ -3,5 +3,6 @@
   become: true
   vars:
     ctfd_secret_key: "secret_key_molecule"
+    ctfd_bind_address: "0.0.0.0:4000"
   roles:
     - role: msterhuj.ctfd

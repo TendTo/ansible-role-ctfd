@@ -8,6 +8,7 @@
       - python3-venv
       - python-is-python3
       - unzip
+      - git
     state: present
 
 - name: "Create CTFd user"
@@ -85,6 +86,21 @@
     owner: "ctfd"
     group: "ctfd"
     mode: "0644"
+
+- name: "Install plugins"
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "/opt/ctfd/CTFd/plugins/{{ item.name }}"
+    version: "{{ item.version | default('HEAD') }}"
+    update: true
+  loop: "{{ ctfd_plugins }}"
+
+- name: "Install requirements of plugins"
+  ansible.builtin.pip:
+    virtualenv: "{{ ctfd_venv_path }}"
+    virtualenv_command: "python3 -m venv"
+    requirements: "/opt/ctfd/CTFd/plugins/{{ item.name }}/requirements.txt"
+  loop: "{{ ctfd_plugins }}"
 
 - name: "Migrate DB"
   ansible.builtin.command: "{{ ctfd_venv_path }}/bin/python3 manage.py db upgrade"
