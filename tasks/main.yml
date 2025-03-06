@@ -106,8 +106,6 @@
   ansible.builtin.command: "{{ ctfd_venv_path }}/bin/python3 manage.py db upgrade"
   args:
     chdir: "/opt/ctfd/"
-  become: true
-  become_user: "ctfd"
   register: db_migrated
   changed_when: "'Running' in db_migrated.stderr"
 
