@@ -7,7 +7,7 @@ After=network.target
 User=ctfd
 Group=ctfd
 WorkingDirectory=/opt/ctfd
-ExecStart={{ ctfd_venv_path }}/bin/gunicorn \
+ExecStart=authbind {{ ctfd_venv_path }}/bin/gunicorn \
     --workers {{ ctfd_gunicorn_workers }} 'CTFd:create_app()' \
     --bind {{ ctfd_bind_address }} \
     --access-logfile {{ ctfd_logs_folder }}/access.log \
