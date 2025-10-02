@@ -100,6 +100,7 @@
     virtualenv: "{{ ctfd_venv_path }}"
     virtualenv_command: "python3 -m venv"
     requirements: "/opt/ctfd/CTFd/plugins/{{ item.name }}/requirements.txt"
+  ignore_errors: true
   loop: "{{ ctfd_plugins }}"
 
 - name: "Migrate DB"
